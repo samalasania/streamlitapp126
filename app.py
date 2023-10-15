@@ -1,29 +1,4 @@
 import streamlit as st
-# Set the theme
-st.set_page_config(page_title="My Streamlit App", page_icon=":rocket:", layout="wide")
-# Define the navigation links as dictionary
-nav_links = {
-    "Home": "Home",
-    "About": "About",
-    "Services": "Services",
-    "Contact": "Contact",
-}
-
-# Create a Streamlit sidebar to display the navigation links
-st.sidebar.title("Navigation")
-
-# Create a radio button to select the page
-selected_page = st.sidebar.radio("Go to", list(nav_links.keys()))
-
-
-
-# Define content for each page
-pages = {
-    "Home": "Welcome to the Home Page!",
-    "About": "Learn more about us on the About Page.",
-    "Services": "Explore our services on the Services Page.",
-    "Contact": "Contact us on the Contact Page.",
-}
 st.subheader("Hi,Iam Translator :wave:")
 st.title("LANGUAGE TRANSLATION")
 st.write("welcome to applications for indian languages")
@@ -58,7 +33,6 @@ input_text = st.text_area("Enter the text you want to translate:", "")
 # Add Indian languages to the language selection
 from_lang = st.selectbox("Select the source language:", ["auto", "en", "es", "fr", "de", "ja", "zh", "hi", "kn", "ta", "te"])
 to_lang = st.selectbox("Select the target language:", ["en", "es", "fr", "de", "ja", "zh", "hi", "kn", "ta", "te"])
-
 # Create a translate button
 if st.button("Translate"):
     # Initialize the translator
@@ -74,10 +48,70 @@ if st.button("Translate"):
         translated_text = translator.translate(input_text, src=from_lang, dest=to_lang)
         st.write(f"Translated text ({to_lang}): {translated_text.text}")
 
+# Create a function for each page or section
+def home_page():
+    st.title("Home")
+    st.write("Welcome to the Home page!")
+
+def about_page():
+    st.title("About")
+    st.write("This is the About page. Learn more about us here.")
+
+def services_page():
+    st.title("Services")
+    st.write("Explore our services and what we offer.")
+
+def contact_page():
+    st.title("Contact")
+    st.write("Contact us for more information.")
+
+# Create a dictionary to map navigation labels to the corresponding pages
+page_dict = {
+    "Home": home_page,
+    "About": about_page,
+    "Services": services_page,
+    "Contact": contact_page
+}
+
+# Create a Streamlit abovebar for navigation
+st.sidebar.title("Navigation")
+selected_page = st.sidebar.radio("Go to:", list(page_dict.keys()))
+
+
+# Create a custom container for the top navigation bar
+st.write("""
+    <style>
+        .topnav {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .topnav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+    </style>
+    <div class="topnav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </div>
+    """
+, unsafe_allow_html=True)
+
+# Rest of your Streamlit app code
+st.title("Welcome to My Streamlit App")
+st.write("This is the content of your Streamlit app.")
+
+
 
 
 contact_form="""
-<from action="https://formsubmit.co/MLTE.samalasania@gmail.com" method="POST">
+<from action="https://formsubmit.co/MLTE.athinenirajitha8@gmail.com" method="POST">
 <input type="hidden" name="_captcha"value="false">
 <input type="text" name="name" placeholder="Your name" required>
 <input type="email" name="email" placeholder="Your email" required>
@@ -90,4 +124,3 @@ with left_column:
 	st.markdown(contact_form,unsafe_allow_html=True)
 with right_column:
 	st.empty()
-
